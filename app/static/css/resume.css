@@ -417,7 +417,7 @@ section.skills .content .right p {
 }
 
 section.skills .content .right p.center {
-    color: var(--fade);
+    color: var(--twitter);
 }
 
 section.skills .content .right .item {
