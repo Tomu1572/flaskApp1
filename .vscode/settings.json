@@ -6,5 +6,8 @@
         "PHOTOSHOP",
         "Prepschool",
         "Tomu"
+    ],
+    "python.analysis.extraPaths": [
+        "./web"
     ]
 }
