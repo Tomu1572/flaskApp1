@@ -12,19 +12,19 @@ class BlogEntry(db.Model, SerializerMixin):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     date_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    def __init__(self, name, message, email, date_created, date_updated):
+    def __init__(self, name, message, email):
         self.name = name
         self.message = message
         self.email = email
-        self.date_created = date_created
-        self.date_updated = date_updated
+        self.date_created = datetime.now()
+        self.date_updated = datetime.now()
         
-    def update(self, name, message, email, date_created, date_updated):
+    def update(self, name, message, email):
         self.name = name
         self.message = message
         self.email = email
-        self.date_created = date_created
-        self.date_updated = date_updated
+        self.date_created = datetime.now()
+        self.date_updated = datetime.now()
 
     # def __repr__(self):
     #     return f"BlogEntry(name='{self.name}', message='{self.message}', email='{self.email}', date_created='{self.date_created}', date_updated='{self.date_updated}')"
