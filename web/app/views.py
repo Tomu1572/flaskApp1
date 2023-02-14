@@ -157,8 +157,7 @@ def lab11_microblog():
 def lab11_db_blog_entries():
     blog_entries = []
     db_blog_entries = BlogEntry.query.all()
-
-
+    
     blog_entries = list(map(lambda x: x.to_dict(), db_blog_entries))
     app.logger.debug("DB blog entries: " + str(blog_entries))
 

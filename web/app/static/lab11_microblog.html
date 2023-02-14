@@ -52,7 +52,7 @@
               </div>
             </div>
           </div>
-          <div class="tweet" id="tweet">
+          <div class="tweet" id="blog1">
             <div class="row">
               <div class="col-md-2 text-center">
                 <div class="col-md-2 text-center">
@@ -62,9 +62,9 @@
               <div class="col-md-10" id="datainfo">
                 <div class="row tweet-info" id="id">
                   <div class="col-md-auto">
-                    <span class="tweet-username" id="name">${name}</span>
-                    <span class="tweet-usertag text-muted" id="email">${email}</span>-
-                    <span class="tweet-age text-muted" id="date_created">${date_created}</span>
+                    <span class="tweet-username" id="name"></span>
+                    <span class="tweet-usertag text-muted" id="email"></span>-
+                    <span class="tweet-age text-muted" id="date_created"></span>
                   </div>
                   <div class="col tweet-arrow text-muted">
                     <span class="oi oi-arrow-thick-bottom float-right"></span>
@@ -72,7 +72,7 @@
 
                 </div>
                 <div class="tweet-text" id="message"> 
-                  ${message}
+                
                 </div>
                 <div class="tweet-media">
                   <img class="img-fluid rounded" src="static/img/">
@@ -88,7 +88,7 @@
               </div>
             </div>
           </div>
-          <div class="tweet">
+          <div class="tweet" id="blog1">
             <div class="row">
               <div class="col-md-2 text-center">
                 <div class="col-md-2 text-center">
@@ -98,9 +98,9 @@
               <div class="col-md-10" id="datainfo">
                 <div class="row tweet-info" id="id">
                   <div class="col-md-auto">
-                    <span class="tweet-username" id="name">${name}</span>
-                    <span class="tweet-usertag text-muted" id="email">${email}</span>
-                    <span class="tweet-age text-muted" id="date_created">${date_created}</span>
+                    <span class="tweet-username" id="name"></span>
+                    <span class="tweet-usertag text-muted" id="email"></span>
+                    <span class="tweet-age text-muted" id="date_created"></span>
                   </div>
                   <div class="col tweet-arrow text-muted">
                     <span class="oi oi-arrow-thick-bottom float-right"></span>
@@ -108,7 +108,7 @@
 
                 </div>
                 <div class="tweet-text" id="message"> 
-                  ${message}
+                
                 </div>
                 <div class="tweet-media">
                   <img class="img-fluid rounded" src="static/img/Profile1.png">
@@ -142,11 +142,51 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   <script>
-    function populate_table(contact_data) {
-      $('#datainfo').bootstrapTable({
-        data: contact_data
+    function populate_table(blog_entries) {
+      var blog = document.getElementById("blog1");
+        
+      blog_entries.forEach(element => {
+        var entry = document.createElement("div");
+        entry.className = "tweet";
+        entry.innerHTML = `
+            <div class="row">
+              <div class="col-md-2 text-center">
+                <div class="col-md-2 text-center">
+                  <img class="tw-user-medium rounded-circle" src="static/img/Profile2.png">
+                </div>  
+              </div>
+              <div class="col-md-10" id="datainfo">
+                <div class="row tweet-info" id="id">
+                  <div class="col-md-auto">
+                    <span class="tweet-username" id="name">${element.name}</span>
+                    <span class="tweet-usertag text-muted" id="email">${element.email}</span>-
+                    <span class="tweet-age text-muted" id="date_created">${elemnent.date_created}</span>
+                  </div>
+                  <div class="col tweet-arrow text-muted">
+                    <span class="oi oi-arrow-thick-bottom float-right"></span>
+                  </div>
+
+                </div>
+                <div class="tweet-text" id="message"> 
+                  ${element.message}
+                </div>
+                <div class="tweet-media">
+                  <img class="img-fluid rounded" src="static/img/">
+                </div>
+                <div class="row text-muted">
+                   
+                  <div class="col-md-2"><span class="oi oi-bullhorn"></span></div>
+                  <div class="col-md-2"><span class="oi oi-loop-circular"></span></div>
+                  <div class="col-md-2"><span class="oi oi-heart"></span></div>
+                  <div class="col-md-2"><span class="oi oi-envelope-open"></span></div>
+
+                </div>
+              </div>
+            </div>
+        
+        `;
+        blog.appendChild(entry);
       });
-      $('#datainfo').bootstrapTable('hideColumn', 'id');
     }
 
     $(document).ready(function () {
@@ -155,57 +195,7 @@
       })();
     });
 
-    // refresh the table after a read update
-    function refresh_table(contact_data) {
-      $('#datainfo').bootstrapTable('load', contact_data);
-    }
 
-    function tweet_table(contact_data){
-      const data = {tweet:contact_data};
-      const createTweetHTML = ({name, message, email, date}) => {
-        const post_time = time(date);
-        return <div class="tweet">
-            <div class="row">
-              <div class="col-md-2 text-center">
-                <div class="col-md-2 text-center">
-                  <img class="tw-user-medium rounded-circle" src="static/img/Profile2.png"></img>
-                </div>  
-              </div>
-              <div class="col-md-10" id="datainfo">
-                <div class="row tweet-info" id="id">
-                  <div class="col-md-auto">
-                    <span class="tweet-username" id="name">${name}</span>
-                    <span class="tweet-usertag text-muted" id="email">${email}</span>
-                    <span class="tweet-age text-muted" id="date_created">${date_created}</span>
-                  </div>
-                  <div class="col tweet-arrow text-muted">
-                    <span class="oi oi-arrow-thick-bottom float-right"></span>
-                  </div>
-
-                </div>
-                <div class="tweet-text" id="message"> 
-                  ${message}
-                </div>
-                <div class="tweet-media">
-                  <img class="img-fluid rounded" src="static/img/Profile1.png"></img>
-                </div>
-                <div class="row text-muted">
-                  <div class="col-md-2"><span class="oi oi-bullhorn"></span></div>
-                  <div class="col-md-2"><span class="oi oi-loop-circular"></span></div>
-                  <div class="col-md-2"><span class="oi oi-heart"></span></div>
-                  <div class="col-md-2"><span class="oi oi-envelope-open"></span></div>
-                </div>
-              </div>
-            </div>
-          </div>;
-      };
-
-      console.log(JSON.stringify(data));
-      const tweet = data.tweet.map(createTweetHTML);
-      tweet.forEach((tweet) => {
-        document.getElementById("tweet").innerHTML = tweet + document.getElementById("tweet").innerHTML;
-      });
-    }
 
   </script>
 </body>
