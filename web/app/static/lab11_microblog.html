@@ -1,20 +1,20 @@
 <!doctype html>
 <html lang="en">
- 
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
- 
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  
-  <link rel="stylesheet" href="static/css/mytwitter2.css"> 
+
+  <link rel="stylesheet" href="static/css/mytwitter2.css">
   <link rel="stylesheet" href="static/css/open-iconic-bootstrap.css">
   <title>My Twitter</title>
 </head>
- 
+
 <body>
   <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
@@ -31,7 +31,7 @@
       </form>
     </div>
   </nav>
-  
+
   <div class="container">
     <div class="row">
       <div id="left_3" class="col-md-3">
@@ -47,7 +47,16 @@
               </div>
               <div class="col-md-9">
                 <form>
-                  <input id="tweet-input" class="form-control" type="text" placeholder="Whats happening?">
+                  <label for="firstname">ชื่อ</label>
+                  <input type="text" id="firstname" name="firstname" placeholder="Your name.." required>
+                  <label for="lastname">นามสกุล</label>
+                  <input type="text" id="lastname" name="lastname" placeholder="Your last name.." required>
+                  <label for="phone">โทรศัพท์</label>
+                  <input type="tel" id="phone" name="phone" placeholder="Your phone number.." required>
+                  <input type="hidden" id="entryid" name="id" value="">
+                  <input type="submit" name="submit" value="Submit">
+                  <button id="clear_form" type="button">Clear</button>
+                  <button id="cancel_form" type="button">Cancel</button>
                 </form>
               </div>
             </div>
@@ -57,7 +66,7 @@
               <div class="col-md-2 text-center">
                 <div class="col-md-2 text-center">
                   <img class="tw-user-medium rounded-circle" src="static/img/Profile2.png">
-                </div>  
+                </div>
               </div>
               <div class="col-md-10" id="datainfo">
                 <div class="row tweet-info" id="id">
@@ -71,14 +80,14 @@
                   </div>
 
                 </div>
-                <div class="tweet-text" id="message"> 
-                
+                <div class="tweet-text" id="message">
+
                 </div>
                 <div class="tweet-media">
                   <img class="img-fluid rounded" src="static/img/">
                 </div>
                 <div class="row text-muted">
-                   
+
                   <div class="col-md-2"><span class="oi oi-bullhorn"></span></div>
                   <div class="col-md-2"><span class="oi oi-loop-circular"></span></div>
                   <div class="col-md-2"><span class="oi oi-heart"></span></div>
@@ -93,7 +102,7 @@
               <div class="col-md-2 text-center">
                 <div class="col-md-2 text-center">
                   <img class="tw-user-medium rounded-circle" src="static/img/Profile2.png">
-                </div>  
+                </div>
               </div>
               <div class="col-md-10" id="datainfo">
                 <div class="row tweet-info" id="id">
@@ -107,8 +116,8 @@
                   </div>
 
                 </div>
-                <div class="tweet-text" id="message"> 
-                
+                <div class="tweet-text" id="message">
+
                 </div>
                 <div class="tweet-media">
                   <img class="img-fluid rounded" src="static/img/Profile1.png">
@@ -144,8 +153,9 @@
   <script>
     function populate_table(blog_entries) {
       var blog = document.getElementById("blog1");
-        
-      blog_entries.forEach(element => {
+
+      Object.keys(blog_entries).reverse().forEach(function (i) {
+        var element  = blog_entries[i];
         var entry = document.createElement("div");
         entry.className = "tweet";
         entry.innerHTML = `
@@ -199,5 +209,5 @@
 
   </script>
 </body>
- 
+
 </html>
