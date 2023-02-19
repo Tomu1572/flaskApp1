@@ -1,5 +1,6 @@
 body {
     background-color: #e7ecf0;
+    font-family: 'Kanit', Arial, Helvetica, sans-serif;
 }
 
 nav {
@@ -58,3 +59,13 @@ img.tw-user-medium {
     padding-right: 10px;
 }
 
+input[type=text], input[type=message], select, textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    resize: vertical;
+}

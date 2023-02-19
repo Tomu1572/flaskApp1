@@ -143,7 +143,7 @@ def lab11_microblog():
                 db.session.add(entry)
             # if there is an id already: update the contact entry
             else:
-                contact = Contact.query.get(id_)
+                contact = BlogEntry.query.get(id_)
                 contact.update(**validated_dict)
 
 

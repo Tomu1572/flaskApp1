@@ -15,7 +15,7 @@ def create_db():
 
 @cli.command("seed_db")
 def seed_db():
-    db.session.add(Contact(firstname='สมชาย', lastname='ทรงแบด', phone='081-111-1111'))
+    # db.session.add(Contact(firstname='สมชาย', lastname='ทรงแบด', phone='081-111-1111'))
     db.session.add(BlogEntry(name='Lionel', message='flaskApp1', email='suphakit_ng@cmu.ac.th'))
     db.session.commit()
 
