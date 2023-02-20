@@ -46,7 +46,7 @@
               <div class="col-md-2">
                 <img src="static/img/Profile2.png" class="tw-user-small rounded-circle mx-auto d-block">
               </div>
-              <div class="col-md-9">
+              <div class="col-md-9" id="add-edit" >
                 <form id="blog-table">
                   <label for="name"></label>
                   <input type="text" id="name" name="name" placeholder="Your name.." required>
@@ -70,7 +70,7 @@
                 </div>
               </div>
               <div class="col-md-10" id="datainfo">
-                <div class="row tweet-info" id="id">
+                <!-- <div class="row tweet-info" id="id">
                   <div class="col-md-auto">
                     <span class="tweet-username" id="name"></span>
                     <span class="tweet-usertag text-muted" id="email"></span>-
@@ -85,7 +85,7 @@
 
                 </div>
                 <div class="tweet-media">
-                  <img class="img-fluid rounded" src="static/img/">
+                  
                 </div>
                 <div class="row text-muted">
 
@@ -94,45 +94,10 @@
                   <div class="col-md-2"><span class="oi oi-heart"></span></div>
                   <div class="col-md-2"><span class="oi oi-envelope-open"></span></div>
 
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
-          <div class="tweet" id="blog1">
-            <div class="row">
-              <div class="col-md-2 text-center">
-                <div class="col-md-2 text-center">
-                  <img class="tw-user-medium rounded-circle" src="static/img/Profile2.png">
-                </div>
-              </div>
-              <div class="col-md-10" id="datainfo">
-                <div class="row tweet-info" id="id">
-                  <div class="col-md-auto">
-                    <span class="tweet-username" id="name"></span>
-                    <span class="tweet-usertag text-muted" id="email"></span>
-                    <span class="tweet-age text-muted" id="date_created"></span>
-                  </div>
-                  <div class="col tweet-arrow text-muted">
-                    <span class="oi oi-arrow-thick-bottom float-right"></span>
-                  </div>
-
-                </div>
-                <div class="tweet-text" id="message">
-
-                </div>
-                <div class="tweet-media">
-                  <img class="img-fluid rounded" src="static/img/Profile1.png">
-                </div>
-                <div class="row text-muted">
-                  <div class="col-md-2"><span class="oi oi-bullhorn"></span></div>
-                  <div class="col-md-2"><span class="oi oi-loop-circular"></span></div>
-                  <div class="col-md-2"><span class="oi oi-heart"></span></div>
-                  <div class="col-md-2"><span class="oi oi-envelope-open"></span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
       <div id="right_3" class="col-md-3">
@@ -149,8 +114,9 @@
       Object.keys(blog_entries).reverse().forEach(function (i) {
         var element  = blog_entries[i];
         var entry = document.createElement("div");
-        entry.className = "tweet";
+        // entry.className = "tweet";
         entry.innerHTML = `
+          <div class="tweet" id="blog1">
             <div class="row">
               <div class="col-md-2 text-center">
                 <div class="col-md-2 text-center">
@@ -201,9 +167,9 @@
     }
 
      // refresh the table after a read update
-    function refresh_table(blog_entries) {
-      $("#blog1").empty();
-      populate_table(blog_entries);
+     function refresh_table(blog_entries) {
+      document.getElementById("blog1").innerHTML = "";
+      document.getElementById("blog1").addEventListener("load", populate_table(blog_entries));
     }
 
     $("#blog-table").submit(function (event) {
@@ -221,7 +187,6 @@
         }
       });
 
-
       var $form = $(this);
       var url = $form.attr("action");
 
@@ -229,15 +194,70 @@
         refresh_table(blog_entries);
         clearForm();
       });
-
-      //toggleView()
+      toggleView();
     });
+
+    function prePopulateForm(id) {
+      if (!confirm("Error, please type the message again")){
+        return false;
+      }
+      document.getElementById("name").style.display = "none";
+      document.getElementById("email").style.display = "none";
+      $.getJSON('lab11/BlogEntry', function (data) {
+        data.forEach(function (i) {
+          if (i.id == id){
+            $('#create')[0].reset();
+            $('#name').val(i.name);
+            $('#email').val(i.email);
+            $('#message').val(data.message);
+            $('#date_updated').val(data.date_updated);
+            $('#entryid').val(id);
+          }
+        });
+      });
+      toggleView();
+    }
+
+    function removeItem(row) {
+      if (!confirm("Think again before delete the blog!")){
+        return false;
+      }
+      var url = "lab11/remove_contact"
+      var formData = {'id':row};
+      $.post(url, formData, function (blog_entries){
+        refresh_table(blog_entries);
+      });
+    }
 
     function clearForm() {
       $('#blog-table')[0].reset();
       $('#entryid').val('');
     }
-   
+
+    function toggleView() {
+      if ($('#add-edit').attr('hidden')) {
+        $('#add-edit').removeAttr('hidden');
+      } else {
+        $('add-edit').attr('hidden', 'hidden');
+      }
+    }
+
+    $("#nav-tweet-btn").click(function () {
+      clearForm();
+      toggleView();
+    });
+
+    $("#clear_form").click(function () {
+      clearForm();
+    });
+
+
+    $("#cancel_form").click(function () {
+      clearForm();
+      toggleView();
+    });
+
+
   </script>
 </body>
 
