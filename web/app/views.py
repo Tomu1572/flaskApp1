@@ -116,7 +116,7 @@ def lab11_microblog():
         id_ = result.get('id', '')
         validated = True
         validated_dict = dict()
-        valid_keys = ['name', 'message', 'email']
+        valid_keys = ['name', 'email', 'message']
 
 
         # validate the input
@@ -143,26 +143,26 @@ def lab11_microblog():
                 db.session.add(entry)
             # if there is an id already: update the contact entry
             else:
-                contact = BlogEntry.query.get(id_)
-                contact.update(**validated_dict)
+                blogpost = BlogEntry.query.get(id_)
+                blogpost.update(**validated_dict)
 
 
             db.session.commit()
 
 
-        return lab11_db_blog_entries()
+        return lab11_db_blog()
     return app.send_static_file('lab11_microblog.html')
 
 @app.route("/lab11/BlogEntry")
-def lab11_db_blog_entries():
-    blog_entries = []
+def lab11_db_blog():
+    blog = []
     db_blog_entries = BlogEntry.query.all()
     
-    blog_entries = list(map(lambda x: x.to_dict(), db_blog_entries))
-    app.logger.debug("DB blog entries: " + str(blog_entries))
+    blog = list(map(lambda x: x.to_dict(), db_blog_entries))
+    app.logger.debug("DB blog entries: " + str(blog))
 
 
-    return jsonify(blog_entries)
+    return jsonify(blog)
 
 @app.route('/lab11/remove_contact', methods=('GET', 'POST'))
 def lab11_remove_contacts():
@@ -171,10 +171,10 @@ def lab11_remove_contacts():
         result = request.form.to_dict()
         id_ = result.get('id', '')
         try:
-            contact = BlogEntry.query.get(id_)
-            db.session.delete(contact)
+            blogpost = BlogEntry.query.get(id_)
+            db.session.delete(blogpost)
             db.session.commit()
         except Exception as ex:
             app.logger.debug(ex)
             raise
-    return lab11_db_blog_entries()
+    return lab11_db_blog()

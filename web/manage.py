@@ -15,12 +15,14 @@ def create_db():
 
 @cli.command("seed_blogentry_db")
 def seed_db():
-    db.session.add(BlogEntry(name='freak', message='flaskApp1', email='ll@gmail.com'))
+    db.session.add(
+        BlogEntry(name='freak', message='flaskApp1', email='ll@gmail.com'))
     db.session.commit()
 
 @cli.command("seed_blogentry_db")
 def seed_blogentry_db():
-    db.session.add(BlogEntry(name='Lionel', message='flaskApp1', email='suphakit_ng@cmu.ac.th'))
+    db.session.add(
+        BlogEntry(name='Lionel', message='flaskApp1', email='suphakit_ng@cmu.ac.th'))
     db.session.commit()
 
 if __name__ == "__main__":
