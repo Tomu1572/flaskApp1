@@ -1,5 +1,6 @@
 body {
-    background-color: #e7ecf0;
+    background-color: #15202b;
+    color: #fff;
     font-family: 'Kanit', Arial, Helvetica, sans-serif;
 }
 
@@ -16,21 +17,78 @@ img.tw-user-small {
 img.tw-user-medium {
     height: 50px;
 }
+
+.navbar {
+  background-color: #192734;
+}
+
+.navbar a {
+  color: #fff;
+}
+
+.navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar .form-inline input {
+  background-color: #333;
+  border-color: #333;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #1DA1F2 !important;
+  border-color: #1DA1F2 !important;
+}
+
+.btn-primary:hover {
+  background-color: #0B6FA4 !important;
+  border-color: #0B6FA4 !important;
+}
  
 #nav-search {
     border-radius: 20px;
-    background-color: #e7ecf0
+    background-color: #30404d;
+    color: #fff;
 }
  
 #nav-tweet-btn {
     border-radius: 20px;
-    background-color: #67b1f9;
-    color: #ffffff;
+    background-color: #1da1f2;
+    color: #fff;
+}
+
+#nav-tweet-btn:hover {
+  background-color: #1381c6;
 }
 
 .content-box {
-    background-color: #ffffff;
+    background-color: #253341;
+    color: #fff;
     margin-bottom: 0px;
+}
+
+#add-edit {
+  background-color: #30404d;
+}
+
+#blog1 {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #1da1f2;
+  border-radius: 5px;
+}
+
+#clear_form, #cancel_form {
+  background-color: #1da1f2;
+  color: #fff;
+  border: none;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+#clear_form:hover, #cancel_form:hover {
+  background-color: #1381c6;
 }
 
 .new-tweet-row {
@@ -40,7 +98,8 @@ img.tw-user-medium {
 }
 
 .tweet {
-    background-color: #ffffff;
+    background-color: #1b2836;
+    color: #fff;
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #edf1f4;
@@ -57,6 +116,17 @@ img.tw-user-medium {
 .tweet-text,
 .tweet-media {
     padding-right: 10px;
+}
+
+.text-muted #interact span {
+    padding-left: 15px;
+    margin-right: 20px;    
+}
+
+.text-muted #edit span {
+    margin-left: 35px;
+    margin-right: 15px;
+    padding-left: 125px;
 }
 
 input[type=text], input[type=message], select, textarea {

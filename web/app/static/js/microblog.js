@@ -23,7 +23,7 @@ function populate_table(blog_entries) {
                                 <span class="tweet-usertag text-muted" id="email">${element.email}</span>
                             </div>
                             <div class="col-md-auto">
-                                ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date1.toLocaleDateString("en-US", options)}</span>`:`<span class="tweet-date-updated" id="date_updated">${date2toLocaleDateString("en-US", options)}</span>`}
+                                ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date1.toLocaleDateString("en-US", options)}</span>`:`<span class="tweet-date-updated" id="date_updated">${date2.toLocaleDateString("en-US", options)}</span>`}
                             </div>
                             <div class="col tweet-arrow text-muted">
                                 <span class="oi oi-arrow-thick-bottom float-right"></span>
@@ -36,13 +36,16 @@ function populate_table(blog_entries) {
                         
                     </div>
                     <div class="row text-muted">
-                        
-                        <div class="col-md-2"><span class="oi oi-bullhorn"></span></div>
-                        <div class="col-md-2"><span class="oi oi-loop-circular"></span></div>
-                        <div class="col-md-2"><span class="oi oi-heart"></span></div>
-                        <div class="col-md-2"><span class="oi oi-envelope-open"></span></div>
-                        <div class="col-md-2"><span onclick="removeItem(${element.id})" class="oi oi-trash" id="trash"></span></div>
-                        <div class="col-md-2"><span onclick="prePopulateForm(${element.id})" class="oi oi-list" id="edit"></span></div>
+                        <div class="btn-group" id="interact">
+                            <span class="oi oi-bullhorn"></span>
+                            <span class="oi oi-loop-circular"></span>
+                            <span class="oi oi-heart"></span>
+                            <span class="oi oi-envelope-open"></span>
+                        </div>
+                        <div class="btn-group" id="edit">
+                            <span onclick="removeItem(${element.id})" class="oi oi-trash" id="trash"></span></div>
+                            <span onclick="prePopulateForm(${element.id})" class="oi oi-list" id="edit"></span></div>
+                        </div>
 
                     </div>
                 </div>
@@ -54,6 +57,7 @@ function populate_table(blog_entries) {
 
     // console.log("error404");
 }
+
 $(document).ready(function () {
     (function () {
         $.getJSON("lab11/BlogEntry", populate_table);
@@ -65,6 +69,12 @@ function refresh_table(blog_entries) {
     document.getElementById("blog1").innerHTML = "";
     document.getElementById("blog1").addEventListener("load", populate_table(blog_entries));
 }
+
+$('#add-edit').hide();
+$('#nav-tweet-btn').on('click', function(event) {
+    event.preventDefault();
+    $('#add-edit').toggle();
+});
 
 $("#blog-table").submit(function (event) {
     // prevent default html form submission action
@@ -89,7 +99,7 @@ $("#blog-table").submit(function (event) {
         $('#message').val('');
         $('#entryid').val('');
     });
-    toggleView();
+    
 });
 
 function prePopulateForm(id) {
@@ -110,7 +120,6 @@ function prePopulateForm(id) {
             }
         });
     });
-    toggleView();
 }
 
 function removeItem(id) {
@@ -129,19 +138,6 @@ function clearForm() {
     $('#entryid').val('');
 }
 
-function toggleView() {
-    if ($('#add-edit').attr('hidden')) {
-    $('#add-edit').removeAttr('hidden');
-    } else {
-    $('add-edit').attr('hidden', 'hidden');
-    }
-}
-
-$("#nav-tweet-btn").click(function () {
-    clearForm();
-    toggleView();
-});
-
 $("#clear_form").click(function () {
     clearForm();
 });
@@ -149,9 +145,6 @@ $("#clear_form").click(function () {
 
 $("#cancel_form").click(function () {
     clearForm();
-    toggleView();
+    $("#add-edit").slideUp('fast');
 });
 
-$("#delete").click(function () {
-    
-});
