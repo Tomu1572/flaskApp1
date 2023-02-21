@@ -8,6 +8,8 @@
         "Tomu"
     ],
     "python.analysis.extraPaths": [
+        "./web",
+        "./web",
         "./web"
     ]
 }

@@ -8,6 +8,7 @@ function populate_table(blog_entries) {
 
         const date1 = new Date(element.date_created + " UTC");
         const date2 = new Date(element.date_updated + " UTC");
+        // ${date2.toLocaleDateString("en-US", options)}
         entry.innerHTML = `
             <div class="tweet" id="blog1">
                 <div class="row">
@@ -23,7 +24,7 @@ function populate_table(blog_entries) {
                                 <span class="tweet-usertag text-muted" id="email">${element.email}</span>
                             </div>
                             <div class="col-md-auto">
-                                ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date1.toLocaleDateString("en-US", options)}</span>`:`<span class="tweet-date-updated" id="date_updated">${date2.toLocaleDateString("en-US", options)}</span>`}
+                                ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date1.toLocaleDateString()} ${date1.toLocaleTimeString()}</span>`:`<span class="tweet-date-updated" id="date_updated">${date2.toLocaleDateString()} ${date2.toLocaleTimeString()}</span>`}
                             </div>
                             <div class="col tweet-arrow text-muted">
                                 <span class="oi oi-arrow-thick-bottom float-right"></span>
