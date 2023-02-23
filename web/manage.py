@@ -22,8 +22,7 @@ def seed_db():
                                                             method='sha256'),
                             avatar_url='https://ui-avatars.com/api/?name=\
 สมชาย+ทรงแบด&background=83ee03&color=fff'))
-    db.session.add(
-        Contact(name='freak', message='flaskApp1', email='ll@gmail.com'))
+    db.session.commit()
     db.session.add(
        PrivateContact(firstname='ส้มโอ', lastname='โอเค',
                       phone='081-111-1112', owner_id=1))

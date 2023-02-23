@@ -5,13 +5,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.urls import url_parse
 import json
 from sqlalchemy.sql import text
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from app import app
 from app import db
 from app import login_manager
 from app.models.contact import Contact
 from app.models.info import BlogEntry
-from app.models.authuser import AuthUser
+from app.models.authuser import AuthUser, PrivateContact
 
 @app.route('/')
 def home():
@@ -68,27 +68,31 @@ def lab10_phonebook():
             app.logger.debug('validated dict: ' + str(validated_dict))
             # if there is no id: create a new contact entry
             if not id_:
-                entry = Contact(**validated_dict)
+                validated_dict['owner_id'] = current_user.id
+                # entry = Contact(**validated_dict)
+                entry = PrivateContact(**validated_dict)
                 app.logger.debug(str(entry))
                 db.session.add(entry)
             # if there is an id already: update the contact entry
             else:
-                contact = Contact.query.get(id_)
-                contact.update(**validated_dict)
+                # contact = Contact.query.get(id_)
+                contact = PrivateContact.query.get(id_)
+                if contact.owner_id == current_user.id:
+                    contact.update(**validated_dict)
 
 
             db.session.commit()
 
 
         return lab10_db_contacts()
-    return app.send_static_file('lab10_phonebook.html')
+    return render_template('lab10_phonebook.html')
 
 @app.route("/lab10/contacts")
+@login_required
 def lab10_db_contacts():
-    contacts = []
-    db_contacts = Contact.query.all()
-
-
+    # db_contacts = Contact.query.all()
+    db_contacts = PrivateContact.query.filter(
+        PrivateContact.owner_id == current_user.id)
     contacts = list(map(lambda x: x.to_dict(), db_contacts))
     app.logger.debug("DB Contacts: " + str(contacts))
 
