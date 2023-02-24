@@ -161,7 +161,7 @@ def lab11_microblog():
 
 
         return lab11_db_blog()
-    return app.send_static_file('lab11_microblog.html')
+    return render_template('lab11_microblog.html')
 
 @app.route("/lab11/BlogEntry")
 def lab11_db_blog():
@@ -334,3 +334,8 @@ def load_user(user_id):
     # since the user_id is just the primary key of our
     # user table, use it in the query for the user
     return AuthUser.query.get(int(user_id))
+
+
+@app.route('/lab13')
+def lab13_index():
+   return render_template('lab13/index.html')
