@@ -1,141 +1,104 @@
+/* Set the font and background color */
 body {
-    background-color: #15202b;
-    color: #fff;
-    font-family: 'Kanit', Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
+  background-color: #f5f8fa;
 }
 
-nav {
-    background-color: #ffffff;
-    border-bottom: 1px solid #adb1b4;
-    margin-bottom: 10px;
+/* Set the color for links */
+a {
+  color: #1da1f2;
 }
 
-img.tw-user-small {
-    height: 40px;
-}
- 
-img.tw-user-medium {
-    height: 50px;
+/* Set the color for headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #14171a;
 }
 
+/* Set the width for the navbar and set its background color */
 .navbar {
-  background-color: #192734;
+  width: 100%;
+  background-color: #fff;
 }
 
-.navbar a {
-  color: #fff;
+/* Set the color for the navbar links */
+.navbar-nav .nav-item .nav-link {
+  color: #1da1f2;
 }
 
-.navbar-nav .nav-link {
-  color: white;
-}
-
-.navbar .form-inline input {
-  background-color: #333;
-  border-color: #333;
-  color: #fff;
-}
-
-.btn-primary {
-  background-color: #1DA1F2 !important;
-  border-color: #1DA1F2 !important;
-}
-
-.btn-primary:hover {
-  background-color: #0B6FA4 !important;
-  border-color: #0B6FA4 !important;
-}
- 
-#nav-search {
-    border-radius: 20px;
-    background-color: #30404d;
-    color: #fff;
-}
- 
-#nav-tweet-btn {
-    border-radius: 20px;
-    background-color: #1da1f2;
-    color: #fff;
-}
-
-#nav-tweet-btn:hover {
-  background-color: #1381c6;
-}
-
-.content-box {
-    background-color: #253341;
-    color: #fff;
-    margin-bottom: 0px;
-}
-
-#add-edit {
-  background-color: #30404d;
-}
-
-#blog1 {
-  margin-top: 20px;
+/* Set the font size and background color for the tweet box */
+.new-tweet-row {
+  font-size: 14px;
+  background-color: #fff;
   padding: 10px;
-  border: 1px solid #1da1f2;
-  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-#clear_form, #cancel_form {
+/* Set the color for the tweet text and username */
+.tweet p {
+  color: #14171a;
+}
+
+.tweet .username {
+  color: #1da1f2;
+}
+
+/* Set the color for the buttons */
+.btn {
+  background-color: #1da1f2;
+  color: #fff;
+}
+
+.dropdown img {
+  padding-right: 5px;
+}
+/* Set the color for the form labels */
+label {
+  color: #1da1f2;
+}
+
+/* Set the font size and color for the form input fields */
+input[type=text], input[type=email] {
+  font-size: 14px;
+  color: #14171a;
+}
+
+/* Set the color for the form submit button */
+input[type=submit] {
   background-color: #1da1f2;
   color: #fff;
   border: none;
-  margin-left: 10px;
-  padding: 5px;
+  padding: 5px 10px;
+  margin: 10px 0;
 }
 
-#clear_form:hover, #cancel_form:hover {
-  background-color: #1381c6;
+/* Set the color for the form cancel and clear buttons */
+#cancel_form, #clear_form {
+  background-color: #fff;
+  color: #1da1f2;
+  border: 1px solid #1da1f2;
+  padding: 5px 10px;
+  margin: 10px;
 }
 
-.new-tweet-row {
-    background-color: #eaf5fe;
-    padding-top: 10px;
-    padding-bottom: 10px;
+/* Set the color for the form cancel and clear buttons when hovering */
+#cancel_form:hover, #clear_form:hover {
+  background-color: #1da1f2;
+  color: #fff;
 }
 
-.tweet {
-    background-color: #1b2836;
-    color: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #edf1f4;
-}
- 
-.tweet-username {
-    font-weight: bold;
-}
- 
-.tweet-arrow {
-    padding-right: 25px;
-}
- 
-.tweet-text,
-.tweet-media {
-    padding-right: 10px;
+#blog1 {
+  margin-bottom: 20px;
 }
 
-.text-muted #interact span {
-    padding-left: 15px;
-    margin-right: 20px;    
+#interact {
+  display: flex;
+  justify-content: space-between;
+  width: 100px; /* Adjust as needed */
+  margin-left: auto;
+  padding-left: -100px;
 }
 
-.text-muted #edit span {
-    margin-left: 35px;
-    margin-right: 15px;
-    padding-left: 125px;
-}
-
-input[type=text], input[type=message], select, textarea {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-    margin-top: 2px;
-    margin-bottom: 0px;
-    resize: vertical;
+#interact span {
+  padding: 4px;
+  cursor: pointer;
 }

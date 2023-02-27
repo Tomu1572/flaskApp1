@@ -13,7 +13,6 @@
 
   <link rel="stylesheet" href="static/css/mytwitter2.css">
   <link rel="stylesheet" href="static/css/open-iconic-bootstrap.css">
-  <script src="https://kit.fontawesome.com/87f04edde9.js" crossorigin="anonymous"></script>
   <title>My Twitter</title>
 </head>
 
@@ -36,7 +35,7 @@
                   <i class="fa-solid fa-pen-to-square"></i>
                     Edit profile
                 </a>
-                <a class="dropdown-item" id="logout" href="lab11/logout">
+                <a class="dropdown-item" id="logout">
                   <i class="fa-solid fa-right-from-bracket"></i>
                     Logout
                 </a>
@@ -62,9 +61,10 @@
               </div>
               <div class="col-md-9" id="add-edit" >
                 <form id="blog-table">
-                  <input type="hidden" id="name" name="name" value="{{current_user.name}}">
-                  <input type="hidden" id="email" name="email" value="{{current_user.email}}">
-                  <!-- <input type="hidden" id="avatar_url" name="avatar_url" value="{{current_user.avatar_url}}"> -->
+                  <label for="name"></label>
+                  <input type="text" id="name" name="name" placeholder="Your name.." required>
+                  <label for="email"></label>
+                  <input type="email" id="email" name="email" placeholder="Your email.." required>
                   <label for="message"></label>
                   <input type="text" id="message" name="message" placeholder="What's in your mind.." required>
                   <input type="hidden" id="entryid" name="id" value="">

@@ -8,20 +8,15 @@ function populate_table(blog_entries) {
         var entry = document.createElement("div");
         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-        const date1 = new Date(element.date_created);
-        date3 = date1.toLocaleString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'
-                                , hour: '2-digit', minute:'2-digit', second: '2-digit'}).replace(',', ''); // remove comma separato
-        // console.log(date1)
-        const date2 = new Date(element.date_updated);
-        date4 = date2.toLocaleString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'
-                                , hour: '2-digit', minute:'2-digit', second: '2-digit'}).replace(',', ''); // remove comma separato
+        const date1 = new Date(element.date_created + " UTC");
+        const date2 = new Date(element.date_updated + " UTC");
         // ${date2.toLocaleDateString("en-US", options)}
         entry.innerHTML = `
             <div class="tweet" id="blog1">
                 <div class="row">
                     <div class="col-md-2 text-center">
                         <div class="col-md-2 text-center">
-                            <img class="tw-user-medium rounded-circle" src=${element.avatar_url}>
+                            <img class="tw-user-medium rounded-circle" src="static/img/Profile2.png">
                         </div>  
                     </div>
                     <div class="col-md-10" id="datainfo">
@@ -31,7 +26,7 @@ function populate_table(blog_entries) {
                                 <span class="tweet-usertag text-muted" id="email">${element.email}</span>
                             </div>
                             <div class="col-md-auto">
-                                ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date3}</span>`:`<span class="tweet-date-updated" id="date_updated">${date4}</span>`}
+                                ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date1.toLocaleDateString()} ${date1.toLocaleTimeString()}</span>`:`<span class="tweet-date-updated" id="date_updated">${date2.toLocaleDateString()} ${date2.toLocaleTimeString()}</span>`}
                             </div>
                             <div class="col tweet-arrow text-muted">
                                 <span class="oi oi-arrow-thick-bottom float-right"></span>
@@ -58,7 +53,7 @@ function populate_table(blog_entries) {
                             `<a class="dropdown-item" href="javascript:void(0)" onclick="">
                                 <i class="fa-solid fa-trash"></i>
                                 report
-                            </a>`}
+                            </a>}`}
                         </div>  
                         
 
@@ -105,8 +100,6 @@ $("#blog-table").submit(function (event) {
             formData[key] = val;
         }
     });
-    // formData['name'] = $("#name").val();
-    // formData['email'] = $("#email").val();
 
     var $form = $(this);
     var url = $form.attr("action");
@@ -178,3 +171,4 @@ $("#cancel_form").click(function () {
     clearForm();
     $("#add-edit").slideUp('fast');
 });
+

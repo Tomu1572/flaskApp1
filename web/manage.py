@@ -1,6 +1,5 @@
 from flask.cli import FlaskGroup
 from werkzeug.security import generate_password_hash
-from datetime import datetime
 
 from app import app, db
 from app.models.contact import Contact
@@ -22,16 +21,12 @@ def seed_db():
                                                             method='sha256'),
                             avatar_url='https://ui-avatars.com/api/?name=\
 สมชาย+ทรงแบด&background=83ee03&color=fff'))
-    db.session.commit()
     db.session.add(
        PrivateContact(firstname='ส้มโอ', lastname='โอเค',
                       phone='081-111-1112', owner_id=1))
-    db.session.commit()
-
-@cli.command("seed_blogentry_db")
-def seed_blogentry_db():
     db.session.add(
-        BlogEntry(name='Lionel', message='flaskApp1', email='suphakit_ng@cmu.ac.th'))
+        BlogEntry(message='flaskApp1'))
+    
     db.session.commit()
 
 

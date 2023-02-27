@@ -24,7 +24,7 @@ if app.debug:
     app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True)
 
 login_manager = LoginManager()
-login_manager.login_view = 'lab12_login'
+login_manager.login_view = 'lab13_login'
 login_manager.init_app(app)
 
 # Creating an SQLAlchemy instance
