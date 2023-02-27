@@ -1,6 +1,5 @@
-var checkmail = $('#email').val();
-
 function populate_table(blog_entries) {
+    var user = parseInt('{{ current_user.id}}')
     var blog = document.getElementById("blog1");
 
     Object.keys(blog_entries).reverse().forEach(function (i) {
@@ -16,19 +15,15 @@ function populate_table(blog_entries) {
         date4 = date2.toLocaleString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'
                                 , hour: '2-digit', minute:'2-digit', second: '2-digit'}).replace(',', ''); // remove comma separato
         // ${date2.toLocaleDateString("en-US", options)}
-        entry.innerHTML = `
+
+        entry.innerHTML(`
             <div class="tweet" id="blog1">
                 <div class="row">
-                    <div class="col-md-2 text-center">
-                        <div class="col-md-2 text-center">
-                            <img class="tw-user-medium rounded-circle" src=${element.avatar_url}>
-                        </div>  
-                    </div>
+                    ${avatar}
                     <div class="col-md-10" id="datainfo">
                         <div class="row tweet-info" id="id">
                             <div class="col-md-auto">
-                                <span class="tweet-username" id="name">${element.name}</span>
-                                <span class="tweet-usertag text-muted" id="email">${element.email}</span>
+                                ${name_mail}
                             </div>
                             <div class="col-md-auto">
                                 ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date3}</span>`:`<span class="tweet-date-updated" id="date_updated">${date4}</span>`}
@@ -51,7 +46,7 @@ function populate_table(blog_entries) {
                             <span class="oi oi-envelope-open"></span>
                         </div>
                         <div class="btn-group" id="edit">
-                            ${checkmail === element.email?
+                            ${element.id === element.owner_id?
                             `<span onclick="removeItem(${element.id})" class="oi oi-trash" id="trash"></span></div>
                             <span onclick="prePopulateForm(${element.id})" class="oi oi-list" id="edit"></span></div>`
                             :
@@ -66,7 +61,7 @@ function populate_table(blog_entries) {
                 </div>
             </div>
         
-        `;
+        `);
         blog.appendChild(entry);
     });
 
@@ -79,10 +74,13 @@ $(document).ready(function () {
     })();
 });
 
+
     // refresh the table after a read update
 function refresh_table(blog_entries) {
-    document.getElementById("blog1").innerHTML = "";
-    document.getElementById("blog1").addEventListener("load", populate_table(blog_entries));
+    // document.getElementById("blog1").innerHTML = "";
+    // document.getElementById("blog1").addEventListener("load", populate_table(blog_entries));
+    $('#tweet').empty();
+    populate_table(blog)
 }
 
 $('#add-edit').hide();

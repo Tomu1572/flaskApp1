@@ -11,7 +11,7 @@ from app import db
 from app import login_manager
 from app.models.contact import Contact
 from app.models.info import BlogEntry
-from app.models.authuser import AuthUser, PrivateContact
+from app.models.authuser import AuthUser, PrivateContact, PrivateBlogEntry
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -157,39 +157,37 @@ def lab11_microblog():
             app.logger.debug('validated dict: ' + str(validated_dict))
             # if there is no id: create a new contact entry
             if not id_:
-                entry = BlogEntry(**validated_dict)
+                validated_dict['owner_id'] = current_user.id
+                entry = PrivateBlogEntry(**validated_dict)
                 app.logger.debug(str(entry))
                 db.session.add(entry)
             # if there is an id already: update the contact entry
             else:
-                blogpost = BlogEntry.query.get(id_)
-                blogpost.update(**validated_dict)
+                blogpost = PrivateBlogEntry.query.get(id_)
+                if blogpost.owner_id == current_user.id:
+                    blogpost.update(**validated_dict)
 
             db.session.commit()
 
 
         return lab11_db_blog()
+    
     return render_template('lab11_microblog.html')
 
 @app.route("/lab11/BlogEntry")
 def lab11_db_blog():
     blog = []
-    db_blog_entries = BlogEntry.query.all()
+    db_blog_entries = PrivateBlogEntry.query.all()
     #db_blog_entries = PrivateBlogEntry.query.filter(
         #PrivateBlogEntry.owner_id == current_user.id)
-    
-    blog = list(map(lambda x: x.to_dict(), db_blog_entries))
-    # user_info = list(map(lambda x: x.to_dict(), current_user))
-
-    for entry in blog:
-        entry['email'] = current_user.email
-        entry['name'] = current_user.name
-        entry['avatar_url'] = current_user.avatar_url
-
-    # blog.sort(key=lambda x: x['id'])
-    app.logger.debug("DB blog entries: " + str(blog))
-
-
+    for i in db_blog_entries:
+        app.logger.debug(i.to_dict())
+        owner_id = i.to_dict()["owner_id"]
+        app.logger.debug(owner_id)
+        user_data = AuthUser.query.get(owner_id)
+        blog.append([user_data.to_dict(), i.to_dict()])
+    # blog = list(map(lambda x: x.to_dict(), db_blog_entries))
+    # app.logger.debug("DB blog entries: " + str(blog))
     return jsonify(blog)
 
 @app.route('/lab11/remove_contact', methods=('GET', 'POST'))
@@ -199,7 +197,7 @@ def lab11_remove_contacts():
         result = request.form.to_dict()
         id_ = result.get('id', '')
         try:
-            blogpost = BlogEntry.query.get(id_)
+            blogpost = PrivateBlogEntry.query.get(id_)
             db.session.delete(blogpost)
             db.session.commit()
         except Exception as ex:
