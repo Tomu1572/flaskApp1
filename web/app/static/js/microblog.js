@@ -42,7 +42,7 @@ function populate_table(blog_entries) {
                                 ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date3}</span>`:`<span class="tweet-date-updated" id="date_updated">${date4}</span>`}
                             </div>
                             <div class="col tweet-arrow text-muted">
-                                <span class="oi oi-arrow-thick-bottom float-right"></span>
+                                <a class="oi oi-arrow-thick-bottom float-right" href="mailto:${owner.email}"></a>
                             </div>
                         </div>
                     <div class="tweet-text" id="message"> 
@@ -155,8 +155,6 @@ function prePopulateForm(id) {
         data.forEach(function (i) {
             if (i.id == id){
             $('#blog-table')[0].reset();
-            $('#name').val(i.name);
-            $('#email').val(i.email);
             $('#message').val(i.message);
             $('#date_updated').val(i.date_updated);
             $('#entryid').val(id);
