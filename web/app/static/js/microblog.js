@@ -1,10 +1,12 @@
+let arrayData;
 function populate_table(blog_entries) {
+    arrayData = blog_entries
     var data = document.getElementById("user")
     var user = data.dataset.id
     console.log(user);
     var blog = document.getElementById("blog1");
-
-    Object.keys(blog_entries).reverse().forEach(function (i) {
+    //Object.keys(blog_entries).reverse()
+    Object.keys(blog_entries).reverse().forEach(function (i, index) {
         var owner = blog_entries[i][0]
         var element  = blog_entries[i][1];
         console.log(owner.name);
@@ -45,7 +47,7 @@ function populate_table(blog_entries) {
                                 <a class="oi oi-arrow-thick-bottom float-right" href="mailto:${owner.email}"></a>
                             </div>
                         </div>
-                    <div class="tweet-text" id="message"> 
+                    <div class="tweet-text" id="text"> 
                         ${element.message}
                     </div>
                     <div class="tweet-media">
@@ -61,7 +63,7 @@ function populate_table(blog_entries) {
                         <div class="btn-group" id="edit">
                             ${user == element.owner_id ?
                             `<span onclick="removeItem(${element.id})" class="oi oi-trash" id="trash"></span>
-                            <span onclick="prePopulateForm(${element.id})" class="oi oi-list" id="edit-2"></span>`
+                            <span onclick="prePopulateForm(${index})" class="oi oi-list" id="edit-2"></span>`
                             :
                             `<a class="dropdown-item" href="javascript:void(0)" onclick="">
                                 <i class="fa-solid fa-trash"></i>
@@ -145,22 +147,13 @@ $("#blog-table").submit(function (event) {
     
 });
 
-function prePopulateForm(id) {
+function prePopulateForm(index) {
     if (!confirm("Are you sure you wanna edit this post?")){
         return false;
     }
-    // document.getElementById("name").style.display = "none";
-    // document.getElementById("email").style.display = "none";
-    $.getJSON('lab11/BlogEntry', function (data) {
-        data.forEach(function (i) {
-            if (i.id == id){
-            $('#blog-table')[0].reset();
-            $('#message').val(i.message);
-            $('#date_updated').val(i.date_updated);
-            $('#entryid').val(id);
-            }
-        });
-    });
+    $("#blog-table")[0].reset();
+    $("#message").val(arrayData[index][1].message)
+    $("#entryid").val(arrayData[index][1].id);
 }
 
 function removeItem(id) {
