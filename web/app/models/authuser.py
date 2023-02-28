@@ -24,7 +24,7 @@ class AuthUser(db.Model, UserMixin, SerializerMixin):
     def update(self, email, name, avatar_url):
         self.email = email
         self.name = name
-        self.avatar_url = avatar_urls
+        self.avatar_url = avatar_url
 
 class PrivateContact(Contact, UserMixin, SerializerMixin):
     owner_id = db.Column(db.Integer, db.ForeignKey('auth_users.id'))

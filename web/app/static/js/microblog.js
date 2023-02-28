@@ -1,9 +1,17 @@
 function populate_table(blog_entries) {
-    var user = parseInt('{{ current_user.id}}')
+    var data = document.getElementById("user")
+    var user = data.dataset.id
+    console.log(user);
     var blog = document.getElementById("blog1");
 
     Object.keys(blog_entries).reverse().forEach(function (i) {
-        var element  = blog_entries[i];
+        var owner = blog_entries[i][0]
+        var element  = blog_entries[i][1];
+        console.log(owner.name);
+        console.log(element.message);
+        console.log(element.date_created);
+        console.log(element.date_updated);
+        console.log(element.owner_id);
         var entry = document.createElement("div");
         var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -16,14 +24,19 @@ function populate_table(blog_entries) {
                                 , hour: '2-digit', minute:'2-digit', second: '2-digit'}).replace(',', ''); // remove comma separato
         // ${date2.toLocaleDateString("en-US", options)}
 
-        entry.innerHTML(`
+        entry.innerHTML = `
             <div class="tweet" id="blog1">
                 <div class="row">
-                    ${avatar}
+                    <div class="col-md-2 text-center">
+                        <div class="col-md-2 text-center">
+                            <img class="tw-user-medium rounded-circle" src="${owner.id === element.owner_id ? owner.avatar_url : element.avatar_url}">
+                        </div>  
+                    </div>
                     <div class="col-md-10" id="datainfo">
                         <div class="row tweet-info" id="id">
                             <div class="col-md-auto">
-                                ${name_mail}
+                                <span class="tweet-username" id="name">${owner.id === element.owner_id ? owner.name : element.name}</span>
+                                <span class="tweet-usertag text-muted" id="email">${owner.id === element.owner_id ? owner.email : element.email}</span>
                             </div>
                             <div class="col-md-auto">
                                 ${element.date_created === element.date_updated ?`<span class="tweet-date-created" id="date_created">${date3}</span>`:`<span class="tweet-date-updated" id="date_updated">${date4}</span>`}
@@ -46,9 +59,9 @@ function populate_table(blog_entries) {
                             <span class="oi oi-envelope-open"></span>
                         </div>
                         <div class="btn-group" id="edit">
-                            ${element.id === element.owner_id?
-                            `<span onclick="removeItem(${element.id})" class="oi oi-trash" id="trash"></span></div>
-                            <span onclick="prePopulateForm(${element.id})" class="oi oi-list" id="edit"></span></div>`
+                            ${user == element.owner_id ?
+                            `<span onclick="removeItem(${element.id})" class="oi oi-trash" id="trash"></span>
+                            <span onclick="prePopulateForm(${element.id})" class="oi oi-list" id="edit-2"></span>`
                             :
                             `<a class="dropdown-item" href="javascript:void(0)" onclick="">
                                 <i class="fa-solid fa-trash"></i>
@@ -61,12 +74,27 @@ function populate_table(blog_entries) {
                 </div>
             </div>
         
-        `);
+        `;
         blog.appendChild(entry);
     });
 
     // console.log("error404");
 }
+//  function updateAuth(userid,ownerid,id) {
+//       var data = document.getElementById("user");
+//       if (userid == ownerid ) {
+//         $.ajax({
+//           type : 'POST',
+//           url : '/lab11/update',
+//           data : {id : id , name : data.dataset.name , email : data.dataset.email , avatar_url : data.dataset.avatar},
+//           success : function () {
+//             $.getJSON("lab11/BlogEntry", function (i) {
+//               refresh_table(i);
+//             });
+//           }
+//         });
+//       }
+//     }
 
 $(document).ready(function () {
     (function () {
@@ -79,8 +107,8 @@ $(document).ready(function () {
 function refresh_table(blog_entries) {
     // document.getElementById("blog1").innerHTML = "";
     // document.getElementById("blog1").addEventListener("load", populate_table(blog_entries));
-    $('#tweet').empty();
-    populate_table(blog)
+    $('#blog1').empty();
+    populate_table(blog_entries)
 }
 
 $('#add-edit').hide();

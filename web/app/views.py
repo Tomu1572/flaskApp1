@@ -174,12 +174,22 @@ def lab11_microblog():
     
     return render_template('lab11_microblog.html')
 
+# @app.route('/lab11/update', methods=('GET', 'POST'))
+# def lab11_update():
+#     blog =  BlogEntry.query.get(request.form.get("id"))
+#     blog.name = request.form.get("name")
+#     blog.email = request.form.get("email")
+#     blog.avatar_url = request.form.get("avatar_url")
+#     db.session.commit()
+#     return lab11_db_blog()
+
 @app.route("/lab11/BlogEntry")
 def lab11_db_blog():
     blog = []
     db_blog_entries = PrivateBlogEntry.query.all()
-    #db_blog_entries = PrivateBlogEntry.query.filter(
-        #PrivateBlogEntry.owner_id == current_user.id)
+    # app.logger.debug(db_blog_entries.to_dict())
+    # db_blog_entries = PrivateBlogEntry.query.filter(
+    #     PrivateBlogEntry.owner_id == current_user.id)
     for i in db_blog_entries:
         app.logger.debug(i.to_dict())
         owner_id = i.to_dict()["owner_id"]
