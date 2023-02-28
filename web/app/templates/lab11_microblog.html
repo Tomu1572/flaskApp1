@@ -25,7 +25,7 @@
   <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
       <div class="navbar-nav">
-        <a class="nav-item nav-link" href="#"><span class="oi oi-home"></span> Home</a>
+        <a class="nav-item nav-link" href="lab11/profile"><span class="oi oi-home"></span> Home</a>
         <a class="nav-item nav-link" href="#"><span class="oi oi-bolt"></span> Moments</a>
         <a class="nav-item nav-link" href="#"><span class="oi oi-bell"></span> Notifications</a>
         <a class="nav-item nav-link" href="#"><span class="oi oi-envelope-open"></span> Messages</a>
@@ -36,9 +36,13 @@
           <img src="{{ current_user.avatar_url }}" class="tw-user-small rounded-circle" onclick="showDropdownMenu(event)" width="52">
             <div class="dropdown-menu" id ="dropdown_item">
           
-                <a class="dropdown-item" id="editProfile" >
+                <a class="dropdown-item" href="lab11/edit" id="editProfile" >
                   <i class="fa-solid fa-pen-to-square"></i>
                     Edit profile
+                </a>
+                <a class="dropdown-item" href="lab11/validatepassword" id="editProfile" >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                    Change password
                 </a>
                 <a class="dropdown-item" id="logout" href="lab11/logout">
                   <i class="fa-solid fa-right-from-bracket"></i>

@@ -233,11 +233,71 @@ def gen_avatar_url(email, name):
         bgcolor + "&color=" + color
     return avatar_url
 
-
-@app.route('/lab11/profile')
+@app.route('/lab11', methods=('GET', 'POST'))
 @login_required
 def lab13_profile():
-   return render_template('lab13/profile.html')
+    return render_template('lab11_microblog.html')
+
+@app.route('/lab11/edit', methods=('GET', 'POST'))
+@login_required
+def lab13_edit():
+    if request.method == 'POST':
+        current_password = request.form['password']
+        app.logger.debug(current_password)
+        new_name = request.form['name']
+        new_email = request.form['email']
+        user = AuthUser.query.filter_by(email=new_email).first()
+
+        if not check_password_hash(current_user.password, current_password):
+            flash('Incorrect password.')
+        elif user and current_user.email != request.form['email']:
+            flash('Email is already taken.')
+        else:
+            old_name = current_user.name
+            old_email = current_user.email
+            current_user.name = new_name
+            current_user.email = new_email
+            db.session.commit()
+
+            AuthUser.query.filter_by(name=old_name, email=old_email).update({AuthUser.name: new_name, AuthUser.email: new_email})
+            db.session.commit()
+            flash('Your changes have been saved.')
+            return redirect(url_for("lab13_profile"))
+    return render_template('lab13/edit.html')
+
+@app.route('/lab11/validatepassword', methods=('GET', 'POST'))
+@login_required
+def lab13_validatepass():
+    if request.method == 'POST':
+        current_password = request.form['password0']
+        app.logger.debug(current_password)
+
+        if not check_password_hash(current_user.password, current_password):
+            flash('Incorrect password.')
+        else:
+            flash('Correct.')
+            return redirect(url_for("lab13_editpass"))
+    return render_template('lab13/confirmpass.html')
+
+@app.route('/lab11/editpass', methods=('GET', 'POST'))
+@login_required
+def lab13_editpass():
+    if request.method == 'POST':
+        new_password = request.form['password1']
+        new_password2 = request.form['password2']
+        app.logger.debug(new_password)
+        app.logger.debug(new_password2)
+
+        if new_password != new_password2:
+            flash('One of your password is not the same.')
+        else:
+            old_pass = current_user.password
+            AuthUser.query.filter_by(password=old_pass).update({AuthUser.password: generate_password_hash(
+                                    new_password, method='sha256')})
+            db.session.commit()
+            flash('Your changes have been saved.')
+            return redirect(url_for("lab13_profile"))
+    return render_template('lab13/changepass.html')
 
 
 
@@ -247,6 +307,7 @@ def lab13_login():
         # login code goes here
         email = request.form.get('email')
         password = request.form.get('password')
+        app.logger.debug(password)
         remember = bool(request.form.get('remember'))
 
 
