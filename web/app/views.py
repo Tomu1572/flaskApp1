@@ -186,7 +186,7 @@ def lab11_microblog():
 @app.route("/lab11/BlogEntry")
 def lab11_db_blog():
     blog = []
-    db_blog_entries = PrivateBlogEntry.query.all()
+    db_blog_entries = PrivateBlogEntry.query.order_by(PrivateBlogEntry.date_created.desc()).all()
     # app.logger.debug(db_blog_entries.to_dict())
     # db_blog_entries = PrivateBlogEntry.query.filter(
     #     PrivateBlogEntry.owner_id == current_user.id)

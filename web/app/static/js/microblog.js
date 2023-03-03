@@ -6,7 +6,7 @@ function populate_table(blog_entries) {
     console.log(user);
     var blog = document.getElementById("blog1");
     //Object.keys(blog_entries).reverse()
-    Object.keys(blog_entries).reverse().forEach(function (i, index) {
+    Object.keys(blog_entries).forEach(function (i, index) {
         var owner = blog_entries[i][0]
         var element  = blog_entries[i][1];
         console.log(owner.name);
